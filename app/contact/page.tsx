@@ -35,7 +35,7 @@ export default function Contact() {
       <main className="max-w-3xl mx-auto px-6 md:px-8 py-20 pt-32">
         <section className="mb-16">
           <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 text-balance">
-            Get in Touch
+            Izhaaq
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed mb-12">
             I&apos;d love to hear your thoughts, questions, or ideas. Whether you want to discuss the essays, 
@@ -124,10 +124,10 @@ export default function Contact() {
                   Email
                 </h3>
                 <a 
-                  href="mailto:sosei@unbothered.agency"
+                  href="mailto:izhaaq@unbothered.agency"
                   className="text-accent hover:underline text-lg"
                 >
-                  sosei@unbothered.agency
+                  izhaaq@unbothered.agency
                 </a>
               </div>
 

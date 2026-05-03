@@ -12,7 +12,7 @@ export default function Navigation() {
 
   useEffect(() => {
     setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0)
-    
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault()
@@ -34,8 +34,8 @@ export default function Navigation() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
       <nav className="max-w-4xl mx-auto px-6 md:px-8 py-6 flex justify-between items-center">
         <div className="flex flex-col">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             onClick={() => {
               if (typeof window !== 'undefined') {
                 sessionStorage.setItem('hasLoadedBefore', 'true')
@@ -66,7 +66,7 @@ export default function Navigation() {
               {item.label}
             </Link>
           ))}
-          
+
           <button
             onClick={() => setIsSearchOpen(true)}
             className="group flex items-center gap-3 p-2 bg-secondary/30 hover:bg-secondary/60 border border-border/50 rounded-sm transition-all duration-300 ml-2"
@@ -95,7 +95,7 @@ export default function Navigation() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
-          
+
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex flex-col gap-1.5 w-6 h-6 justify-center"
@@ -130,7 +130,7 @@ export default function Navigation() {
           </div>
         </div>
       )}
-      
+
       <Search essays={essaysData} isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   )

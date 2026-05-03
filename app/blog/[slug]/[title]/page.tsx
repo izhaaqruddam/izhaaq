@@ -2,6 +2,9 @@ import Navigation from '@/components/navigation'
 import Link from 'next/link'
 import PDFExportButton from '@/components/pdf-export-button'
 import essays from '@/lib/essays.json'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 
 interface BlogPostProps {
   params: Promise<{
@@ -114,11 +117,13 @@ export default async function BlogPost(props: BlogPostProps) {
             </h1>
           </header>
 
-          <div className="prose prose-invert max-w-none mb-12 text-foreground/90">
-            <div 
-              dangerouslySetInnerHTML={{ __html: post.content }}
-              className="space-y-6 leading-relaxed"
-            />
+          <div className="prose-sosei max-w-none mb-12">
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]} 
+              rehypePlugins={[rehypeRaw]}
+            >
+              {post.content}
+            </ReactMarkdown>
           </div>
 
           <div className="border-t border-border pt-8 mt-16">
