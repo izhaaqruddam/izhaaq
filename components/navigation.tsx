@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Search from './search'
 import essaysData from '@/lib/essays.json'
 
@@ -9,6 +10,7 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMac, setIsMac] = useState(true)
+  const pathname = usePathname()
 
   useEffect(() => {
     setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0)
@@ -52,20 +54,30 @@ export default function Navigation() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-8 items-center">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => {
-                if (typeof window !== 'undefined') {
-                  sessionStorage.setItem('hasLoadedBefore', 'true')
-                }
-              }}
-              className="text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors duration-200"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href))
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    sessionStorage.setItem('hasLoadedBefore', 'true')
+                  }
+                }}
+                className={`text-sm uppercase tracking-widest transition-all duration-300 relative group ${
+                  isActive 
+                    ? 'text-accent font-semibold' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {item.label}
+                {isActive && (
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent rounded-full" />
+                )}
+              </Link>
+            )
+          })}
 
           <button
             onClick={() => setIsSearchOpen(true)}
@@ -112,21 +124,26 @@ export default function Navigation() {
       {isOpen && (
         <div className="md:hidden border-t border-border bg-background">
           <div className="max-w-4xl mx-auto px-6 py-4 space-y-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors duration-200"
-                onClick={() => {
-                  setIsOpen(false)
-                  if (typeof window !== 'undefined') {
-                    sessionStorage.setItem('hasLoadedBefore', 'true')
-                  }
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href))
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`block text-sm uppercase tracking-widest transition-colors duration-200 ${
+                    isActive ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  onClick={() => {
+                    setIsOpen(false)
+                    if (typeof window !== 'undefined') {
+                      sessionStorage.setItem('hasLoadedBefore', 'true')
+                    }
+                  }}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
           </div>
         </div>
       )}
