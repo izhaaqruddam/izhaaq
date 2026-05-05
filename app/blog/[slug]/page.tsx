@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: BlogPostProps): Promise<Metadata> {
   const params = await props.params
   const post = blogContent[params.slug]
-  
+
   if (!post) {
     return {
       title: 'Post Not Found',
@@ -53,11 +53,11 @@ export async function generateMetadata(props: BlogPostProps): Promise<Metadata> 
  */
 function linkifyContent(content: string, dict: string[]) {
   if (!dict || dict.length === 0) return content;
-  
+
   const escapedWords = dict
     .map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
     .join('|')
-  
+
   const regex = new RegExp(`\\b(${escapedWords})\\b(?![^\\[]*\\])`, 'gi')
   return content.replace(regex, '[$1](https://en.wikipedia.org/wiki/$1)')
 }
@@ -103,11 +103,11 @@ export default async function BlogPost(props: BlogPostProps) {
               remarkPlugins={[remarkGfm]}
               components={{
                 a: ({ ...props }) => (
-                  <a 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-accent hover:underline decoration-accent/50 underline-offset-4" 
-                    {...props} 
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent hover:underline decoration-accent/50 underline-offset-4"
+                    {...props}
                   />
                 )
               }}
