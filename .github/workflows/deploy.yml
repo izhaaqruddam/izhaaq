@@ -3,16 +3,6 @@ name: Deploy Next.js site to Pages
 on:
   push:
     branches: ["main"]
-    paths:
-      - "app/**"
-      - "components/**"
-      - "lib/**"
-      - "public/**"
-      - "next.config.mjs"
-      - "package.json"
-      - "pnpm-lock.yaml"
-
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,18 +20,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Setup pnpm (fast + reliable)
       - uses: pnpm/action-setup@v3
         with:
           version: 9
 
-      # Setup Node with pnpm cache
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
 
-      # Restore Next.js build cache
       - name: Restore Next.js cache
         uses: actions/cache@v4
         with:
@@ -50,15 +37,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-
 
-      # Install deps (deterministic)
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Build project
       - name: Build
         run: pnpm build
 
-      # Upload static export
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out

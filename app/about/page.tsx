@@ -15,7 +15,7 @@ export default function About() {
           <div className="mb-20 flex flex-col items-center">
             <div className="w-48 h-48 md:w-56 md:h-56 relative rounded-sm overflow-hidden border border-foreground/10 grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl">
               <Image
-                src="/izhaaq.jpg"
+                src="/izhaaq.png"
                 alt="Izhaaq"
                 fill
                 className="object-cover"
@@ -44,7 +44,7 @@ export default function About() {
             </p>
 
             <p>
-              Through these essays, I explore questions of presence, productivity, and success. This space is an invitation to 
+              Through these essays, I explore questions of presence, productivity, and success. This space is an invitation to
               think differently about what it means to live on your own terms.
             </p>
           </div>

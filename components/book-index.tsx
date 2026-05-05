@@ -2,6 +2,7 @@
 
 import { motion, Variants } from 'framer-motion'
 import Link from 'next/link'
+import essays from '@/lib/essays.json'
 
 interface IndexEntry {
   title: string
@@ -14,68 +15,44 @@ interface IndexCategory {
   items: IndexEntry[]
 }
 
+/**
+ * Formats a date string like "March 15, 2024" into "15 MAR 24"
+ */
+function formatDate(dateStr: string) {
+  try {
+    const date = new Date(dateStr)
+    if (isNaN(date.getTime())) return dateStr
+    const day = date.getDate().toString().padStart(2, '0')
+    const month = date.toLocaleString('default', { month: 'short' }).toUpperCase()
+    const year = date.getFullYear().toString().slice(-2)
+    return `${day} ${month} ${year}`
+  } catch {
+    return dateStr
+  }
+}
+
+// Dynamically generate sections from essays.json
+const groupedEssays = essays.reduce((acc: Record<string, IndexEntry[]>, essay) => {
+  const category = essay.category || 'Uncategorized'
+  if (!acc[category]) acc[category] = []
+
+  acc[category].push({
+    title: essay.title,
+    date: formatDate(essay.date),
+    href: `/blog/${essay.slug}`
+  })
+
+  return acc
+}, {})
+
+const dynamicSections: IndexCategory[] = Object.entries(groupedEssays).map(([category, items]) => ({
+  category,
+  items
+}))
+
+// Add static administrative sections
 const sections: IndexCategory[] = [
-  {
-    category: 'Introduction',
-    items: [
-      { title: 'The Art of Thoughtful Living', date: '15 MAR 24', href: '/blog/thoughtful-living/the-art-of-thoughtful-living' },
-      { title: 'Unbothered: A Philosophy of Presence', date: '08 MAR 24', href: '/blog/unbothered-philosophy/unbothered-a-philosophy-of-presence' },
-    ]
-  },
-  {
-    category: 'First',
-    items: [
-      { title: 'The First Principles of Design', date: '15 MAR 24', href: '/blog/thoughtful-living/the-art-of-thoughtful-living' },
-    ]
-  },
-  {
-    category: 'Takedowns',
-    items: [
-      { title: 'The Quiet Rebellion', date: '05 FEB 24', href: '/blog/quiet-rebellion/the-quiet-rebellion' },
-    ]
-  },
-  {
-    category: 'GO',
-    items: [
-      { title: 'Beyond Hustle Culture', date: '18 FEB 24', href: '/blog/beyond-hustle/beyond-hustle-culture' },
-    ]
-  },
-  {
-    category: 'Progress',
-    items: [
-      { title: 'Building Without Burnout', date: '22 JAN 24', href: '/blog/building-without-burnout/building-without-burnout' },
-    ]
-  },
-  {
-    category: 'Productivity',
-    items: [
-      { title: 'The Myth of Efficiency', date: '15 MAR 24', href: '/blog/thoughtful-living/the-art-of-thoughtful-living' },
-    ]
-  },
-  {
-    category: 'Competitors',
-    items: [
-      { title: 'On Solitude and Connection', date: '28 FEB 24', href: '/blog/solitude-connection/on-solitude-and-connection' },
-    ]
-  },
-  {
-    category: 'Evolution',
-    items: [
-      { title: 'The Growth Trap', date: '22 JAN 24', href: '/blog/building-without-burnout/building-without-burnout' },
-    ]
-  },
-  {
-    category: 'Culture',
-    items: [
-      { title: 'Identity and Belonging', date: '08 MAR 24', href: '/blog/unbothered-philosophy/unbothered-a-philosophy-of-presence' },
-    ]
-  },
-  {
-    category: 'Conclusion',
-    items: [
-      { title: 'End of Chapter', date: '28 FEB 24', href: '/blog/solitude-connection/on-solitude-and-connection' },
-    ]
-  },
+  ...dynamicSections,
   {
     category: 'Resources',
     items: [

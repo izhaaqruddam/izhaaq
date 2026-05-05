@@ -2,21 +2,11 @@ import Link from 'next/link'
 import essays from '@/lib/essays.json'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import rehypeRaw from 'rehype-raw'
 import { Metadata } from 'next'
-
-function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .replace(/ /g, '-')
-    .replace(/[^\w-]/g, '')
-}
-
 
 interface BlogPostProps {
   params: Promise<{
     slug: string
-    title: string
   }>
 }
 
@@ -30,29 +20,18 @@ interface Essay {
   layout?: number
 }
 
-// Use essay data from JSON
-const blogContent: Record<string, Essay> = {}
-essays.forEach((essay) => {
-  blogContent[essay.slug] = essay as Essay
-})
-
-function calculateReadingTime(htmlContent: string): number {
-  // Remove HTML tags and count words
-  const plainText = htmlContent.replace(/<[^>]*>/g, '')
-  const wordCount = plainText.trim().split(/\s+/).length
-  // Average reading speed is 200 words per minute
-  return Math.ceil(wordCount / 200)
-}
+// Pre-calculate blog content mapping for efficiency
+const blogContent = Object.fromEntries(
+  essays.map(essay => [essay.slug, essay as Essay])
+)
 
 export async function generateStaticParams() {
   return essays.map((essay) => ({
     slug: essay.slug,
-    title: slugify(essay.title),
   }))
 }
 
-
-export async function generateMetadata(props: BlogPostProps) {
+export async function generateMetadata(props: BlogPostProps): Promise<Metadata> {
   const params = await props.params
   const post = blogContent[params.slug]
   
@@ -69,16 +48,18 @@ export async function generateMetadata(props: BlogPostProps) {
   }
 }
 
+/**
+ * Converts specific keywords into Wikipedia links in one pass.
+ */
 function linkifyContent(content: string, dict: string[]) {
   if (!dict || dict.length === 0) return content;
-  let linkedContent = content
-  dict.forEach(word => {
-    const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    // Match the word, ignoring case, as long as it isn't already inside a markdown link [...]
-    const regex = new RegExp(`\\b(${escapedWord})\\b(?![^\\[]*\\])`, 'gi')
-    linkedContent = linkedContent.replace(regex, '[$1](https://en.wikipedia.org/wiki/$1)')
-  })
-  return linkedContent
+  
+  const escapedWords = dict
+    .map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('|')
+  
+  const regex = new RegExp(`\\b(${escapedWords})\\b(?![^\\[]*\\])`, 'gi')
+  return content.replace(regex, '[$1](https://en.wikipedia.org/wiki/$1)')
 }
 
 export default async function BlogPost(props: BlogPostProps) {
@@ -120,10 +101,14 @@ export default async function BlogPost(props: BlogPostProps) {
           <div className="prose-izhaaq max-w-none mb-12 book-drop-cap">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw]}
               components={{
-                a: ({ node, ...props }) => (
-                  <a target="_blank" rel="noopener noreferrer" className="text-accent hover:underline decoration-accent/50 underline-offset-4" {...props} />
+                a: ({ ...props }) => (
+                  <a 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-accent hover:underline decoration-accent/50 underline-offset-4" 
+                    {...props} 
+                  />
                 )
               }}
             >
