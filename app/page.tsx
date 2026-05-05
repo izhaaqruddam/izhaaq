@@ -41,14 +41,19 @@ export default function Home() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-12 text-center w-full"
         >
-          <h1 className="font-bold uppercase text-foreground leading-none tracking-tight mb-2 w-full"
-            style={{ fontSize: 'clamp(3rem, 16vw, 14rem)', fontFamily: 'Butterbrotpapier' }}
+          <h1 className="font-bold uppercase text-foreground leading-none tracking-tight mb-4 w-full"
+            style={{ fontSize: 'clamp(1.5rem, 8vw, 7rem)', fontFamily: 'Butterbrotpapier' }}
           >
             Izhaaq
           </h1>
-          <p className="text-sm md:text-base text-foreground/40 italic mb-8" style={{ fontFamily: 'var(--font-imfell)' }}>
-            *it means laughter
-          </p>
+          <div className="flex flex-col items-center gap-1 mb-8">
+            <p className="text-sm md:text-base text-foreground/60" style={{ fontFamily: 'var(--font-imfell)' }}>
+              Iz·haaq <span className="text-foreground/40 italic">/ɪzˈhɑːk/</span>
+            </p>
+            <p className="text-xs md:text-sm text-foreground/40 italic" style={{ fontFamily: 'var(--font-imfell)' }}>
+              noun: laughter
+            </p>
+          </div>
           <div className="h-px w-8 bg-foreground/10 mx-auto" />
         </motion.header>
 

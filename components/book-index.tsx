@@ -118,8 +118,8 @@ export default function BookIndex() {
           {sections.map((section) => (
             <motion.div key={section.category} variants={item} className="group">
               <h2
-                className="text-2xl text-foreground/40 mb-3 transition-opacity "
-                style={{ fontFamily: 'Butterbrotpapier' }}
+                className="text-2xl text-foreground/40 mb-3 transition-opacity tracking-widest"
+                style={{ fontFamily: 'var(--font-imfell)' }}
               >
                 {section.category}
               </h2>

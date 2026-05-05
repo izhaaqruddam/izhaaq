@@ -18,6 +18,7 @@ interface Essay {
   slug: string
   content: string
   wiki?: string[]
+  layout?: number
 }
 
 // Use essay data from JSON
@@ -37,7 +38,7 @@ function calculateReadingTime(htmlContent: string): number {
 export async function generateMetadata(props: BlogPostProps) {
   const params = await props.params
   const post = blogContent[params.slug]
-
+  
   if (!post) {
     return {
       title: 'Post Not Found',
@@ -85,15 +86,16 @@ export default async function BlogPost(props: BlogPostProps) {
 
   const processedContent = linkifyContent(post.content, post.wiki || [])
 
+  const postIndex = essays.findIndex(e => e.slug === params.slug)
+  const layoutNumber = post.layout || ((postIndex % 6) + 1)
+  const layoutClass = `layout-${layoutNumber}`
+
   return (
-    <div className="min-h-screen bg-background selection:bg-accent/30">
+    <div className={`min-h-screen bg-background selection:bg-accent/30 overflow-x-hidden ${layoutClass}`}>
       <main className="book-container pt-32">
-        <article id="blog-post-content" className="relative">
-          <header className="mb-24 text-center">
-            <div className="book-chapter-num">
-              {post.category}
-            </div>
-            <h1 className="book-title text-balance">
+        <article id="blog-post-content" className="relative w-full">
+          <header className="mb-24 md:mb-32">
+            <h1 className="book-title">
               {post.title}
             </h1>
           </header>
@@ -112,8 +114,8 @@ export default async function BlogPost(props: BlogPostProps) {
             </ReactMarkdown>
           </div>
 
-          <footer className="mt-24 text-center">
-            <Link href="/" className="text-[10px] uppercase tracking-[0.4em] font-bold text-muted-foreground hover:text-accent transition-colors">
+          <footer className="mt-48 text-center relative z-10 w-full clear-both">
+            <Link href="/" className="text-[10px] tracking-[0.4em] font-bold text-muted-foreground hover:text-accent transition-colors">
               ← Return to Index
             </Link>
           </footer>

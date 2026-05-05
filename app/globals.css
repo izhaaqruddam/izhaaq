@@ -9,12 +9,6 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/TerminaTest-Bold.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -98,7 +92,7 @@
   --font-sans: var(--font-sans, 'Inter', system-ui);
   --font-serif: var(--font-serif, 'Merriweather', serif);
   --font-clash: 'Clash Display', sans-serif;
-  --font-termina: 'Termina', sans-serif;
+  --font-termina: 'Clash Display', sans-serif;
   --font-imfell: var(--font-imfell, 'Georgia', serif);
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --color-background: var(--background);
@@ -155,11 +149,13 @@
   }
 
   .prose-izhaaq h2 {
-    @apply text-3xl md:text-4xl font-serif font-bold mt-16 mb-6 text-foreground tracking-tight;
+    @apply text-3xl md:text-4xl font-bold mt-16 mb-6 text-foreground tracking-tight;
+    font-family: var(--font-imfell);
   }
 
   .prose-izhaaq h3 {
-    @apply text-2xl font-serif font-bold mt-12 mb-4 text-foreground/90;
+    @apply text-2xl font-bold mt-12 mb-4 text-foreground/90;
+    font-family: var(--font-imfell);
   }
 
   .prose-izhaaq p {
@@ -213,18 +209,87 @@
 
   /* Book Page Layouts */
   .book-container {
-    @apply max-w-2xl mx-auto px-6 py-20 bg-background text-foreground/90 font-serif;
+    @apply max-w-7xl mx-auto px-6 py-20 bg-background text-foreground/90 font-serif;
   }
 
   .book-chapter-num {
-    @apply text-sm uppercase tracking-[0.3em] font-bold text-accent mb-4;
+    @apply text-sm tracking-[0.3em] font-bold text-accent mb-4;
   }
 
   .book-title {
-    @apply text-5xl md:text-7xl font-bold mb-12 tracking-tighter leading-tight font-termina uppercase;
+    @apply text-5xl md:text-7xl font-bold mb-12 tracking-tighter leading-tight font-termina transition-all duration-700;
   }
 
   .book-drop-cap::first-letter {
     @apply text-7xl font-bold float-left mr-3 mt-2 text-accent leading-none;
+  }
+
+  /* --- AVANT-GARDE EDITORIAL LAYOUTS --- */
+
+  /* Layout 1: The Brutalist Multi-Column (Like NYT Mag) */
+  .layout-1 .prose-izhaaq {
+    @apply md:columns-3 gap-8 text-left text-base leading-relaxed;
+  }
+
+  .layout-1 .book-title {
+    @apply text-5xl md:text-8xl text-accent leading-[0.9] mb-16 text-center border-y-4 border-foreground py-8 break-words;
+  }
+
+  .layout-1 .book-drop-cap::first-letter {
+    @apply text-[6rem] md:text-[8rem] font-bold float-left mr-6 mt-2 text-foreground leading-none;
+  }
+
+  /* Layout 2: The Radical Asymmetry */
+  .layout-2 .prose-izhaaq {
+    @apply md:max-w-xl md:ml-auto md:text-right border-l-4 md:border-l-0 md:border-r-8 border-accent pl-4 md:pl-0 md:pr-8 text-lg leading-loose;
+  }
+
+  .layout-2 .book-title {
+    @apply text-5xl md:text-7xl font-bold mb-16 md:mb-32 tracking-tighter text-left md:max-w-3xl break-words;
+  }
+
+  .layout-2 .book-chapter-num {
+    @apply md:text-right;
+  }
+
+  /* Layout 3: The Massive Typographic Void */
+  .layout-3 .prose-izhaaq {
+    @apply max-w-2xl mx-auto text-center text-xl leading-loose tracking-wide;
+  }
+
+  .layout-3 .book-title {
+    @apply text-2xl md:text-4xl font-serif italic text-center mb-24 md:mb-32 tracking-[0.5em] md:tracking-[1em] text-foreground/30 break-words;
+    font-family: var(--font-imfell);
+  }
+
+  .layout-3 .book-drop-cap::first-letter {
+    @apply text-accent font-normal mr-1 mt-0 float-none text-2xl;
+  }
+
+  /* Layout 4: The Staggered Grid (Like Red Tape) */
+  .layout-4 .prose-izhaaq {
+    @apply md:columns-2 gap-16 md:gap-24 text-justify mt-16 md:mt-32 relative z-10;
+  }
+
+  .layout-4 .book-title {
+    @apply text-6xl md:text-[12vw] font-bold text-center text-destructive md:absolute top-0 left-1/2 md:-translate-x-1/2 opacity-20 pointer-events-none break-words leading-none mb-12 md:mb-0;
+  }
+
+  /* Layout 5: The Split Screen */
+  .layout-5 .prose-izhaaq {
+    @apply md:w-1/2 md:ml-auto md:pl-16 text-lg relative z-10;
+  }
+
+  .layout-5 .book-title {
+    @apply text-5xl md:text-[7vw] md:w-[45%] md:fixed md:top-1/2 md:-translate-y-1/2 md:left-8 leading-[0.9] text-left break-words mb-12 md:mb-0 text-foreground/80;
+  }
+
+  /* Layout 6: The Swiss Grid */
+  .layout-6 .prose-izhaaq {
+    @apply md:columns-3 lg:columns-4 gap-6 text-sm text-left font-sans tracking-widest leading-loose;
+  }
+
+  .layout-6 .book-title {
+    @apply text-6xl md:text-8xl lg:text-9xl tracking-tighter text-foreground mb-12 break-words leading-none;
   }
 }
