@@ -6,7 +6,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const merriweather = Merriweather({ subsets: ['latin'], weight: ['300', '400', '700'], variable: '--font-serif' })
 const ysabeau = Ysabeau_Infant({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], variable: '--font-ysabeau' })
-const imFell = IM_Fell_English({ subsets: ['latin'], weight: '400', style: 'italic', variable: '--font-imfell' })
+const imFell = IM_Fell_English({ subsets: ['latin'], weight: '400', style: 'normal', variable: '--font-imfell' })
 
 export const metadata: Metadata = {
   title: 'Izhaaq - Essays & Insights',

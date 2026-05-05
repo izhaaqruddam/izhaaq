@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import PDFExportButton from '@/components/pdf-export-button'
 import essays from '@/lib/essays.json'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -18,6 +17,7 @@ interface Essay {
   category: string
   slug: string
   content: string
+  wiki?: string[]
 }
 
 // Use essay data from JSON
@@ -37,7 +37,7 @@ function calculateReadingTime(htmlContent: string): number {
 export async function generateMetadata(props: BlogPostProps) {
   const params = await props.params
   const post = blogContent[params.slug]
-  
+
   if (!post) {
     return {
       title: 'Post Not Found',
@@ -49,6 +49,18 @@ export async function generateMetadata(props: BlogPostProps) {
     title: `${post.title} - Izhaaq`,
     description: post.content.substring(0, 160)
   }
+}
+
+function linkifyContent(content: string, dict: string[]) {
+  if (!dict || dict.length === 0) return content;
+  let linkedContent = content
+  dict.forEach(word => {
+    const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    // Match the word, ignoring case, as long as it isn't already inside a markdown link [...]
+    const regex = new RegExp(`\\b(${escapedWord})\\b(?![^\\[]*\\])`, 'gi')
+    linkedContent = linkedContent.replace(regex, '[$1](https://en.wikipedia.org/wiki/$1)')
+  })
+  return linkedContent
 }
 
 export default async function BlogPost(props: BlogPostProps) {
@@ -71,6 +83,8 @@ export default async function BlogPost(props: BlogPostProps) {
     )
   }
 
+  const processedContent = linkifyContent(post.content, post.wiki || [])
+
   return (
     <div className="min-h-screen bg-background selection:bg-accent/30">
       <main className="book-container pt-32">
@@ -85,11 +99,16 @@ export default async function BlogPost(props: BlogPostProps) {
           </header>
 
           <div className="prose-izhaaq max-w-none mb-12 book-drop-cap">
-            <ReactMarkdown 
-              remarkPlugins={[remarkGfm]} 
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
+              components={{
+                a: ({ node, ...props }) => (
+                  <a target="_blank" rel="noopener noreferrer" className="text-accent hover:underline decoration-accent/50 underline-offset-4" {...props} />
+                )
+              }}
             >
-              {post.content}
+              {processedContent}
             </ReactMarkdown>
           </div>
 

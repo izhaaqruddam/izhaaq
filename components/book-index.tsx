@@ -111,36 +111,38 @@ export default function BookIndex() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="max-w-2xl mx-auto py-12 px-4"
+      className="max-w-5xl mx-auto py-4 px-4"
     >
-      <div className="space-y-20">
-        {sections.map((section) => (
-          <motion.div key={section.category} variants={item} className="group">
-            <h2
-              className="text-2xl text-foreground/40 mb-6 transition-opacity italic"
-              style={{ fontFamily: 'var(--font-imfell)' }}
-            >
-              {section.category}
-            </h2>
-            <div className="space-y-4">
-              {section.items.map((entry) => (
-                <div key={entry.title} className="pl-12 md:pl-16">
-                  <Link href={entry.href} className="flex items-baseline gap-6 group/item">
-                    <span
-                      className="index-title !text-xl !text-foreground/60 group-hover/item:!text-foreground transition-colors leading-tight"
-                      style={{ fontFamily: 'var(--font-ysabeau)' }}
-                    >
-                      {entry.title}
-                    </span>
-                    <span className="index-number !text-[12px] text-accent font-mono tracking-tighter whitespace-nowrap">
-                      {entry.date}
-                    </span>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+      <div className="relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+          {sections.map((section) => (
+            <motion.div key={section.category} variants={item} className="group">
+              <h2
+                className="text-2xl text-foreground/40 mb-3 transition-opacity "
+                style={{ fontFamily: 'Butterbrotpapier' }}
+              >
+                {section.category}
+              </h2>
+              <div className="space-y-2">
+                {section.items.map((entry) => (
+                  <div key={entry.title} className="pl-6 md:pl-8">
+                    <Link href={entry.href} className="flex items-baseline gap-4 group/item">
+                      <span
+                        className="index-title !text-lg !text-foreground/60 group-hover/item:!text-foreground transition-colors leading-tight"
+                        style={{ fontFamily: 'var(--font-imfell)' }}
+                      >
+                        {entry.title}
+                      </span>
+                      <span className="index-number !text-[11px] text-accent font-mono tracking-tighter whitespace-nowrap">
+                        {entry.date}
+                      </span>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </motion.div>
   )

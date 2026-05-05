@@ -23,28 +23,36 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background selection:bg-accent/30 flex flex-col items-center justify-center py-24 md:py-32">
+    <div className="min-h-screen bg-background selection:bg-accent/30 flex flex-col items-center justify-center py-8 md:py-12">
       {isLoading && hasNavigated && <LoadingScreen onLoadComplete={handleLoadingComplete} />}
 
-      <main className="w-full px-6">
+      <main className="w-full px-4 md:px-8 overflow-hidden flex flex-col items-center">
+        <div className="w-full max-w-5xl flex items-center justify-center mb-12 text-foreground/40">
+          <span className="text-xs font-mono">&lt;</span>
+          <div className="h-[1px] flex-grow ml-4 bg-foreground/20" />
+          <span className="px-4 text-[10px] uppercase tracking-[0.4em] font-bold whitespace-nowrap">Table of Contents</span>
+          <div className="h-[1px] flex-grow mr-4 bg-foreground/20" />
+          <span className="text-xs font-mono">&gt;</span>
+        </div>
+
         <motion.header
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-24 text-center overflow-hidden"
+          className="mb-12 text-center w-full"
         >
-          <span className="text-[10px] uppercase tracking-[0.5em] font-bold text-accent mb-4 block">
-            Volume I
-          </span>
-          <h1 className="font-termina font-bold uppercase text-foreground leading-none tracking-tighter mb-8"
-            style={{ fontSize: 'clamp(2.5rem, 10vw, 8rem)' }}
+          <h1 className="font-bold uppercase text-foreground leading-none tracking-tight mb-2 w-full"
+            style={{ fontSize: 'clamp(3rem, 16vw, 14rem)', fontFamily: 'Butterbrotpapier' }}
           >
             Izhaaq
           </h1>
+          <p className="text-sm md:text-base text-foreground/40 italic mb-8" style={{ fontFamily: 'var(--font-imfell)' }}>
+            *it means laughter
+          </p>
           <div className="h-px w-8 bg-foreground/10 mx-auto" />
         </motion.header>
 
-        <section>
+        <section className="w-full max-w-5xl">
           <BookIndex />
         </section>
 
@@ -52,7 +60,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="mt-32 text-center"
+          className="mt-12 text-center"
         >
           <div className="text-[9px] uppercase tracking-[0.4em] font-bold text-muted-foreground/40">
             Published by Izhaaq &copy; 2026
