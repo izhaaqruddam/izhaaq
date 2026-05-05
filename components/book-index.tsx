@@ -1,0 +1,147 @@
+'use client'
+
+import { motion, Variants } from 'framer-motion'
+import Link from 'next/link'
+
+interface IndexEntry {
+  title: string
+  date: string
+  href: string
+}
+
+interface IndexCategory {
+  category: string
+  items: IndexEntry[]
+}
+
+const sections: IndexCategory[] = [
+  {
+    category: 'Introduction',
+    items: [
+      { title: 'The Art of Thoughtful Living', date: '15 MAR 24', href: '/blog/thoughtful-living/the-art-of-thoughtful-living' },
+      { title: 'Unbothered: A Philosophy of Presence', date: '08 MAR 24', href: '/blog/unbothered-philosophy/unbothered-a-philosophy-of-presence' },
+    ]
+  },
+  {
+    category: 'First',
+    items: [
+      { title: 'The First Principles of Design', date: '15 MAR 24', href: '/blog/thoughtful-living/the-art-of-thoughtful-living' },
+    ]
+  },
+  {
+    category: 'Takedowns',
+    items: [
+      { title: 'The Quiet Rebellion', date: '05 FEB 24', href: '/blog/quiet-rebellion/the-quiet-rebellion' },
+    ]
+  },
+  {
+    category: 'GO',
+    items: [
+      { title: 'Beyond Hustle Culture', date: '18 FEB 24', href: '/blog/beyond-hustle/beyond-hustle-culture' },
+    ]
+  },
+  {
+    category: 'Progress',
+    items: [
+      { title: 'Building Without Burnout', date: '22 JAN 24', href: '/blog/building-without-burnout/building-without-burnout' },
+    ]
+  },
+  {
+    category: 'Productivity',
+    items: [
+      { title: 'The Myth of Efficiency', date: '15 MAR 24', href: '/blog/thoughtful-living/the-art-of-thoughtful-living' },
+    ]
+  },
+  {
+    category: 'Competitors',
+    items: [
+      { title: 'On Solitude and Connection', date: '28 FEB 24', href: '/blog/solitude-connection/on-solitude-and-connection' },
+    ]
+  },
+  {
+    category: 'Evolution',
+    items: [
+      { title: 'The Growth Trap', date: '22 JAN 24', href: '/blog/building-without-burnout/building-without-burnout' },
+    ]
+  },
+  {
+    category: 'Culture',
+    items: [
+      { title: 'Identity and Belonging', date: '08 MAR 24', href: '/blog/unbothered-philosophy/unbothered-a-philosophy-of-presence' },
+    ]
+  },
+  {
+    category: 'Conclusion',
+    items: [
+      { title: 'End of Chapter', date: '28 FEB 24', href: '/blog/solitude-connection/on-solitude-and-connection' },
+    ]
+  },
+  {
+    category: 'Resources',
+    items: [
+      { title: 'The Author Biography', date: '2026', href: '/about' },
+    ]
+  },
+  {
+    category: 'Acknowledgements',
+    items: [
+      { title: 'Direct Correspondence', date: '2026', href: '/contact' },
+    ]
+  }
+]
+
+const container: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+}
+
+export default function BookIndex() {
+  return (
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="max-w-2xl mx-auto py-12 px-4"
+    >
+      <div className="space-y-20">
+        {sections.map((section) => (
+          <motion.div key={section.category} variants={item} className="group">
+            <h2
+              className="text-2xl text-foreground/40 mb-6 transition-opacity italic"
+              style={{ fontFamily: 'var(--font-imfell)' }}
+            >
+              {section.category}
+            </h2>
+            <div className="space-y-4">
+              {section.items.map((entry) => (
+                <div key={entry.title} className="pl-12 md:pl-16">
+                  <Link href={entry.href} className="flex items-baseline gap-6 group/item">
+                    <span
+                      className="index-title !text-xl !text-foreground/60 group-hover/item:!text-foreground transition-colors leading-tight"
+                      style={{ fontFamily: 'var(--font-ysabeau)' }}
+                    >
+                      {entry.title}
+                    </span>
+                    <span className="index-number !text-[12px] text-accent font-mono tracking-tighter whitespace-nowrap">
+                      {entry.date}
+                    </span>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}

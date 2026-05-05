@@ -10,7 +10,7 @@ export async function exportToPDF(
   // Find the essay content from our data source
   const essay = essaysData.find(e => e.title === title) || {
     title: title,
-    excerpt: 'Article export from Sosei',
+    excerpt: 'Article export from Izhaaq',
     content: 'Content could not be retrieved for PDF export.',
     category: 'Essay',
     date: new Date().toLocaleDateString(),
@@ -46,7 +46,7 @@ export async function exportToPDF(
   // --- Tagline ---
   pdf.setFontSize(9)
   pdf.setTextColor(255, 183, 197) // Cherry Blossom Pink
-  pdf.text('SOSEI — JAPANESE FOR CREATION & REVIVAL', margin, y)
+  pdf.text('IZHAAQ — ANTHOLOGY VOL. I', margin, y)
   y += 15
 
   // --- Divider ---

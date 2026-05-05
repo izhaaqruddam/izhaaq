@@ -1,4 +1,3 @@
-import Navigation from '@/components/navigation'
 import Link from 'next/link'
 import PDFExportButton from '@/components/pdf-export-button'
 import essays from '@/lib/essays.json'
@@ -14,14 +13,10 @@ interface BlogPostProps {
 }
 
 interface Essay {
-  id: string
   title: string
-  excerpt: string
   date: string
   category: string
   slug: string
-  wordCount: number
-  isPopular: boolean
   content: string
 }
 
@@ -51,7 +46,7 @@ export async function generateMetadata(props: BlogPostProps) {
   }
 
   return {
-    title: `${post.title} - Sosei`,
+    title: `${post.title} - Izhaaq`,
     description: post.content.substring(0, 160)
   }
 }
@@ -63,14 +58,13 @@ export default async function BlogPost(props: BlogPostProps) {
   if (!post) {
     return (
       <div className="min-h-screen bg-background">
-        <Navigation />
-        <main className="max-w-3xl mx-auto px-6 md:px-8 py-20 pt-32">
+        <main className="max-w-3xl mx-auto px-6 md:px-8 py-20 pt-32 text-center">
           <h1 className="text-4xl font-serif font-bold mb-4">Post Not Found</h1>
           <p className="text-muted-foreground mb-6">
             Sorry, we couldn&apos;t find the blog post you&apos;re looking for.
           </p>
-          <Link href="/essays" className="text-accent hover:underline">
-            Back to Essays →
+          <Link href="/" className="text-accent hover:underline">
+            Back to Index →
           </Link>
         </main>
       </div>
@@ -78,46 +72,19 @@ export default async function BlogPost(props: BlogPostProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-
-      <main className="max-w-3xl mx-auto px-6 md:px-8 py-20 pt-32">
-        <article id="blog-post-content">
-          <header className="mb-12">
-            <div className="flex items-center gap-3 mb-4 justify-between flex-wrap">
-              <div className="flex items-center gap-3 flex-wrap">
-                <span className="text-xs uppercase tracking-widest text-accent font-semibold">
-                  {post.category}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {post.date}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  •
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {post.wordCount} words
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  •
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {calculateReadingTime(post.content)} min read
-                </span>
-              </div>
-              <PDFExportButton
-                elementId="blog-post-content"
-                filename={params.slug}
-                articleUrl={`sosei.com/blog/${params.slug}/${params.title}`}
-                title={post.title}
-              />
+    <div className="min-h-screen bg-background selection:bg-accent/30">
+      <main className="book-container pt-32">
+        <article id="blog-post-content" className="relative">
+          <header className="mb-24 text-center">
+            <div className="book-chapter-num">
+              {post.category}
             </div>
-            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 text-balance leading-tight">
+            <h1 className="book-title text-balance">
               {post.title}
             </h1>
           </header>
 
-          <div className="prose-sosei max-w-none mb-12">
+          <div className="prose-izhaaq max-w-none mb-12 book-drop-cap">
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]} 
               rehypePlugins={[rehypeRaw]}
@@ -126,11 +93,11 @@ export default async function BlogPost(props: BlogPostProps) {
             </ReactMarkdown>
           </div>
 
-          <div className="border-t border-border pt-8 mt-16">
-            <Link href="/essays" className="text-accent hover:underline text-sm font-medium">
-              ← Back to Essays
+          <footer className="mt-24 text-center">
+            <Link href="/" className="text-[10px] uppercase tracking-[0.4em] font-bold text-muted-foreground hover:text-accent transition-colors">
+              ← Return to Index
             </Link>
-          </div>
+          </footer>
         </article>
       </main>
     </div>

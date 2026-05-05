@@ -6,6 +6,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  allowedDevOrigins: ['uncounselled-braylen-seelily.ngrok-free.dev'],
 }
 
 export default nextConfig
