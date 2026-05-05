@@ -3,6 +3,15 @@ import essays from '@/lib/essays.json'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
+import { Metadata } from 'next'
+
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[^\w-]/g, '')
+}
+
 
 interface BlogPostProps {
   params: Promise<{
@@ -34,6 +43,14 @@ function calculateReadingTime(htmlContent: string): number {
   // Average reading speed is 200 words per minute
   return Math.ceil(wordCount / 200)
 }
+
+export async function generateStaticParams() {
+  return essays.map((essay) => ({
+    slug: essay.slug,
+    title: slugify(essay.title),
+  }))
+}
+
 
 export async function generateMetadata(props: BlogPostProps) {
   const params = await props.params
