@@ -1,0 +1,6 @@
+:HL["/_next/static/chunks/0ot9fbwqvgql8.css","style"]
+:HL["/_next/static/media/248e1dc0efc99276-s.p.0ft7o6kv5bp14.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/3cabd365f8c28a7b-s.p.0eqbee-1rhu-x.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/54abe94a62d4dc33-s.p.0x71__96f89fg.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"blog","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"thoughtful-living","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"title","param":{"type":"d","key":"the-art-of-thoughtful-living","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"xaWyscx6uePNASBVnZvAA"}
