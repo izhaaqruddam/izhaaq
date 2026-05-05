@@ -12,7 +12,8 @@ export const metadata: Metadata = {
   title: 'Izhaaq - Essays & Insights',
   description: 'Long-form essays and reflections by Izhaaq, associated with Unbothered Company',
   icons: {
-    icon: '/izhaaq.png',
+    icon: '/icon.png',
+    apple: '/icon.png',
   },
 }
 
