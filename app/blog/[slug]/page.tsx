@@ -90,14 +90,25 @@ export default async function BlogPost(props: BlogPostProps) {
 
   return (
     <div className={`min-h-screen bg-background selection:bg-accent/30 overflow-x-hidden ${layoutClass}`}>
-      <main className="book-container pt-32">
-        <article id="blog-post-content" className="relative w-full">
-          <header className="mb-24 md:mb-32">
-            <h1 className="book-title">
-              {post.title}
-            </h1>
-          </header>
+      {/* Sticky Reader Header */}
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-background/95 backdrop-blur-sm border-b border-foreground/10 h-14 px-6 md:px-12 flex items-center justify-between">
+        <div className="flex items-baseline gap-3 text-xs">
+          <Link href="/" className="hover:text-accent transition-all text-lg uppercase tracking-widest font-bold" style={{ fontFamily: 'Butterbrotpapier' }}>
+            Izhaaq
+          </Link>
+          <span className="text-foreground/30 font-light translate-y-[1px]">»</span>
+          <span className="text-muted-foreground font-normal truncate max-w-[150px] md:max-w-none" style={{ fontFamily: 'var(--font-imfell)', fontSize: '1rem' }}>
+            {post.title}
+          </span>
+        </div>
+        <div className="flex gap-4 md:gap-8 text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground/60">
+          <Link href="/" className="hover:text-accent transition-colors">All Articles</Link>
+          <Link href="/" className="hover:text-accent transition-colors">Author</Link>
+        </div>
+      </nav>
 
+      <main className="book-container pt-40 md:pt-56">
+        <article id="blog-post-content" className="relative w-full">
           <div className="prose-izhaaq max-w-none mb-12 book-drop-cap">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
