@@ -107,8 +107,14 @@ export default async function BlogPost(props: BlogPostProps) {
         </div>
       </nav>
 
-      <main className="book-container pt-40 md:pt-56">
+      <main className="book-container pt-32">
         <article id="blog-post-content" className="relative w-full">
+          <header className="mb-24 md:mb-32">
+            <h1 className="book-title">
+              {post.title}
+            </h1>
+          </header>
+
           <div className="prose-izhaaq max-w-none mb-12 book-drop-cap">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
