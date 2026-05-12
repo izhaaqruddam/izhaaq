@@ -10,7 +10,7 @@ const imFell = IM_Fell_English({ subsets: ['latin'], weight: '400', style: 'norm
 
 export const metadata: Metadata = {
   title: 'Izhaaq - Essays & Insights',
-  description: 'Long-form essays and reflections by Izhaaq, associated with Unbothered Company',
+  description: 'Long-form essays and reflections by Izhaaq, CEO of Unbothered and 11FPS ',
   icons: {
     icon: '/icon.png',
     apple: '/icon.png',
