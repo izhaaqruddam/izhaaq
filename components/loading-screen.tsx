@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const loadingMessages = [
-  'Opening Anthology',
-  'Consulting the Index',
-  'Preparing the Leaves',
-  'Setting the Type',
-  'Binding the Thoughts',
+  'Study philosophy, it teaches critical reasoning',
+  'Your environment has the highest influence on your success, so choose wisely',
+  "Gratitude for what you have, ambition for what you don't",
+  'A year of effort shapes decades of success',
+  'Be curious, have integrity and aim to give more than you get',
 ]
 
 interface LoadingScreenProps {
