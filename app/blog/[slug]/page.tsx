@@ -59,7 +59,7 @@ function linkifyContent(content: string, dict: string[]) {
     .join('|')
 
   const regex = new RegExp(`\\b(${escapedWords})\\b(?![^\\[]*\\])`, 'gi')
-  return content.replace(regex, (match) => `[${match}](https://en.wikipedia.org/wiki/${match.replace(/\\s+/g, '_')})`)
+  return content.replace(regex, (match) => `[${match}](https://en.wikipedia.org/wiki/${match.replace(/\s+/g, '_')})`)
 }
 
 export default async function BlogPost(props: BlogPostProps) {
